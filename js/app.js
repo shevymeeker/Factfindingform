@@ -217,47 +217,89 @@ class App {
               ${this.branding ? `
                 <div class="card mt-3">
                   <div class="card-header">
-                    <h3 class="card-title">Cloud Backup (Optional)</h3>
-                    <p class="card-subtitle">Back up to YOUR personal cloud storage</p>
+                    <h3 class="card-title">💾 Backup Options (Optional)</h3>
+                    <p class="card-subtitle">Your data, your choice, your cloud</p>
                   </div>
                   <div class="card-body">
-                    <p class="text-muted mb-3">
-                      Connect to your personal cloud storage to automatically back up your data.
-                      Your data goes directly to YOUR account - we never see it.
-                    </p>
-                    <div class="backup-options">
-                      <div class="backup-option ${window.CloudBackup.isConnected('googleDrive') ? 'connected' : ''}"
-                           onclick="app.toggleCloudProvider('googleDrive')">
-                        <div class="backup-option-icon">📁</div>
-                        <div class="backup-option-title">Google Drive</div>
-                        <div class="backup-option-status">
-                          ${window.CloudBackup.isConnected('googleDrive') ? 'Connected' : 'Not Connected'}
-                        </div>
-                      </div>
 
-                      <div class="backup-option ${window.CloudBackup.isConnected('dropbox') ? 'connected' : ''}"
-                           onclick="app.toggleCloudProvider('dropbox')">
-                        <div class="backup-option-icon">📦</div>
-                        <div class="backup-option-title">Dropbox</div>
-                        <div class="backup-option-status">
-                          ${window.CloudBackup.isConnected('dropbox') ? 'Connected' : 'Not Connected'}
-                        </div>
-                      </div>
-
-                      <div class="backup-option"
-                           onclick="app.backupToFiles()">
-                        <div class="backup-option-icon">☁️</div>
-                        <div class="backup-option-title">Save to Files</div>
-                        <div class="backup-option-status">
-                          iOS: Saves to iCloud<br>Desktop: Choose location
-                        </div>
-                      </div>
+                    <div class="alert alert-success mb-3">
+                      <strong>✨ Recommended: Save to Files</strong><br>
+                      No setup required • Works immediately • Saves to iCloud on iOS
                     </div>
 
-                    <div class="alert alert-info mt-3">
-                      <strong>Your Privacy:</strong> Cloud backup is 100% optional. If you enable it,
-                      data is sent directly to YOUR cloud account using YOUR credentials.
-                      We never see or store your data.
+                    <div class="backup-option" style="border: 3px solid var(--accent-color); background: #f1f8f4;"
+                         onclick="app.backupToFiles()">
+                      <div class="backup-option-icon">☁️</div>
+                      <div class="backup-option-title" style="font-size: 1.25rem; color: var(--accent-color);">
+                        Save to Files
+                      </div>
+                      <div class="backup-option-status" style="color: var(--accent-dark); font-weight: 500;">
+                        <strong>No setup needed!</strong><br>
+                        iOS → iCloud Drive<br>
+                        Desktop → Any location
+                      </div>
+                      <button class="btn btn-success mt-2" onclick="event.stopPropagation(); app.backupToFiles();">
+                        Save Backup Now
+                      </button>
+                    </div>
+
+                    <details class="mt-4" style="cursor: pointer;">
+                      <summary style="font-weight: 600; padding: 1rem; background: var(--background); border-radius: var(--border-radius);">
+                        <span style="font-size: 1.1rem;">⚙️ Advanced: Auto-Sync to Your Cloud</span>
+                        <span style="float: right; color: var(--text-secondary); font-size: 0.875rem;">(Requires setup)</span>
+                      </summary>
+
+                      <div style="padding: 1.5rem; background: var(--background); border-radius: var(--border-radius); margin-top: 0.5rem;">
+                        <p class="text-muted mb-3">
+                          Connect to <strong>your personal</strong> Google Drive or Dropbox account.
+                          Data goes directly to <strong>YOUR</strong> cloud - we never see it.
+                        </p>
+
+                        <div class="backup-options">
+                          <div class="backup-option ${window.CloudBackup.isConnected('googleDrive') ? 'connected' : ''}"
+                               onclick="app.toggleCloudProvider('googleDrive')">
+                            <div class="backup-option-icon">📁</div>
+                            <div class="backup-option-title">Google Drive</div>
+                            <div class="backup-option-status">
+                              ${window.CloudBackup.isConnected('googleDrive') ? '✓ Connected' : 'Setup Required'}
+                            </div>
+                            ${!window.CloudBackup.isConnected('googleDrive') ? `
+                              <button class="btn btn-sm btn-outline mt-2"
+                                      onclick="event.stopPropagation(); app.showOAuthGuide('googleDrive')">
+                                Setup Instructions
+                              </button>
+                            ` : ''}
+                          </div>
+
+                          <div class="backup-option ${window.CloudBackup.isConnected('dropbox') ? 'connected' : ''}"
+                               onclick="app.toggleCloudProvider('dropbox')">
+                            <div class="backup-option-icon">📦</div>
+                            <div class="backup-option-title">Dropbox</div>
+                            <div class="backup-option-status">
+                              ${window.CloudBackup.isConnected('dropbox') ? '✓ Connected' : 'Setup Required'}
+                            </div>
+                            ${!window.CloudBackup.isConnected('dropbox') ? `
+                              <button class="btn btn-sm btn-outline mt-2"
+                                      onclick="event.stopPropagation(); app.showOAuthGuide('dropbox')">
+                                Setup Instructions
+                              </button>
+                            ` : ''}
+                          </div>
+                        </div>
+
+                        <div class="alert alert-info mt-3">
+                          <strong>Why Setup Required?</strong><br>
+                          To protect your privacy, <strong>you</strong> create your own OAuth app (free!).
+                          This ensures data goes directly to <strong>your</strong> cloud account, never through our servers.
+                        </div>
+                      </div>
+                    </details>
+
+                    <div class="alert alert-info mt-3" style="font-size: 0.875rem;">
+                      <strong>🔒 Your Privacy Guarantee:</strong><br>
+                      All backup methods are 100% optional. If you enable cloud sync,
+                      data is sent directly to YOUR account using YOUR credentials.
+                      We never see, store, or have access to your data.
                     </div>
                   </div>
                 </div>
@@ -1076,6 +1118,145 @@ class App {
   }
 
   /**
+   * Show OAuth setup guide
+   */
+  showOAuthGuide(provider) {
+    const guides = {
+      googleDrive: {
+        title: 'Google Drive Setup',
+        steps: [
+          'Go to <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a>',
+          'Create a new project (or select existing)',
+          'Enable "Google Drive API" from the API Library',
+          'Go to "Credentials" → "Create Credentials" → "OAuth client ID"',
+          'If prompted, configure OAuth consent screen (External type)',
+          'Application type: Web application',
+          'Add authorized redirect URI: <code>' + window.location.origin + '/' + '</code>',
+          'Copy the Client ID (looks like: 123456-abc.apps.googleusercontent.com)'
+        ],
+        videoUrl: 'https://www.youtube.com/results?search_query=google+drive+api+oauth+setup'
+      },
+      dropbox: {
+        title: 'Dropbox Setup',
+        steps: [
+          'Go to <a href="https://www.dropbox.com/developers/apps" target="_blank">dropbox.com/developers/apps</a>',
+          'Click "Create app"',
+          'Choose API: Scoped access',
+          'Choose access type: Full Dropbox (or App folder for more security)',
+          'Name your app (must be unique)',
+          'Go to "Permissions" tab and enable: files.content.write and files.content.read',
+          'Go to "Settings" tab',
+          'Add Redirect URI: <code>' + window.location.origin + '/' + '</code>',
+          'Copy the "App key" from Settings tab'
+        ],
+        videoUrl: 'https://www.youtube.com/results?search_query=dropbox+api+oauth+setup'
+      }
+    };
+
+    const guide = guides[provider];
+    if (!guide) return;
+
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7); z-index: 10000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; overflow: auto;
+    `;
+
+    modal.innerHTML = `
+      <div style="
+        background: white; border-radius: 12px; max-width: 700px;
+        width: 100%; max-height: 90vh; overflow-y: auto;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      ">
+        <div style="padding: 2rem; border-bottom: 1px solid var(--divider-color);">
+          <h2 style="margin: 0; color: var(--primary-color);">${guide.title}</h2>
+          <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">
+            One-time setup (takes ~5 minutes)
+          </p>
+        </div>
+        <div style="padding: 2rem;">
+          <div style="background: #fff3cd; border-left: 4px solid #ff9800; padding: 1rem; margin-bottom: 1.5rem;">
+            <strong>Why this setup?</strong><br>
+            Creating your own OAuth app ensures data goes directly to YOUR cloud account.
+            We never have access to your data. This is FREE and takes just a few minutes!
+          </div>
+
+          <h3 style="margin-bottom: 1rem;">Step-by-Step Instructions:</h3>
+          <ol style="padding-left: 1.5rem; line-height: 2;">
+            ${guide.steps.map(step => `<li style="margin-bottom: 0.75rem;">${step}</li>`).join('')}
+          </ol>
+
+          <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 1rem; margin: 1.5rem 0;">
+            <strong>Need help?</strong> Search YouTube for step-by-step video tutorials:<br>
+            <a href="${guide.videoUrl}" target="_blank" style="color: #2196f3; text-decoration: underline;">
+              Watch video guide →
+            </a>
+          </div>
+
+          <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+            <button class="btn btn-secondary" onclick="this.closest('[style*=\\'position: fixed\\']').remove()" style="flex: 1;">
+              Close
+            </button>
+            <button class="btn btn-primary" onclick="app.promptForOAuthCredentials('${provider}'); this.closest('[style*=\\'position: fixed\\']').remove();" style="flex: 1;">
+              I Have My Credentials →
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    modal.onclick = (e) => {
+      if (e.target === modal) modal.remove();
+    };
+
+    document.body.appendChild(modal);
+  }
+
+  /**
+   * Prompt for OAuth credentials
+   */
+  async promptForOAuthCredentials(provider) {
+    const providerNames = {
+      googleDrive: 'Google Drive',
+      dropbox: 'Dropbox'
+    };
+
+    const credentialNames = {
+      googleDrive: 'Client ID',
+      dropbox: 'App Key'
+    };
+
+    const placeholders = {
+      googleDrive: '123456789-abc123.apps.googleusercontent.com',
+      dropbox: 'abc123xyz789'
+    };
+
+    const credential = prompt(
+      `Enter your ${providerNames[provider]} ${credentialNames[provider]}:\n\n` +
+      `Example: ${placeholders[provider]}\n\n` +
+      `(This will be stored locally on your device)`
+    );
+
+    if (!credential || credential.trim() === '') {
+      return;
+    }
+
+    // Save the credential
+    if (provider === 'googleDrive') {
+      window.CloudBackup.configureGoogleDrive(credential.trim());
+    } else if (provider === 'dropbox') {
+      window.CloudBackup.configureDropbox(credential.trim());
+    }
+
+    this.showNotification('Credentials saved! Now connecting...', 'success');
+
+    // Now try to connect
+    this.toggleCloudProvider(provider);
+  }
+
+  /**
    * Toggle cloud provider connection
    */
   async toggleCloudProvider(provider) {
@@ -1088,7 +1269,34 @@ class App {
           window.Router.navigate('/setup'); // Refresh
         }
       } else {
-        // Connect
+        // Check if configured
+        const storageKeys = {
+          googleDrive: 'gdrive_client_id',
+          dropbox: 'dropbox_app_key'
+        };
+
+        const isConfigured = localStorage.getItem(storageKeys[provider]);
+
+        if (!isConfigured) {
+          // Not configured - prompt for credentials
+          const providerNames = {
+            googleDrive: 'Google Drive',
+            dropbox: 'Dropbox'
+          };
+
+          const setup = confirm(
+            `${providerNames[provider]} requires setup.\n\n` +
+            `You need to create a free OAuth app to connect your ${providerNames[provider]} account.\n\n` +
+            `Click OK to see setup instructions, or Cancel to skip.`
+          );
+
+          if (setup) {
+            this.showOAuthGuide(provider);
+          }
+          return;
+        }
+
+        // Already configured - connect
         this.showNotification(`Connecting to ${provider}...`, 'info');
 
         if (provider === 'googleDrive') {
@@ -1104,6 +1312,11 @@ class App {
       }
     } catch (error) {
       this.showNotification(`Connection failed: ${error.message}`, 'error');
+
+      // If error says "not configured", show guide
+      if (error.message.includes('not configured')) {
+        this.showOAuthGuide(provider);
+      }
     }
   }
 
