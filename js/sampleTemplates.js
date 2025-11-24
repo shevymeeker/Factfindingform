@@ -1,107 +1,211 @@
 /**
  * Sample Form Templates
  * Pre-built templates that users can import to get started quickly
+ * These templates are generic and auto-branded with user's company info
  */
 
 const SAMPLE_TEMPLATES = [
   {
-    name: 'Basic Client Intake Form',
-    description: 'A general-purpose client onboarding form suitable for most service businesses',
+    name: 'Contact Form',
+    description: 'Simple contact form for general inquiries and questions',
     category: 'General',
-    icon: '📋',
+    icon: '✉️',
     sections: [
       {
-        id: 'sample-basic-1',
-        title: 'Client Information',
-        description: 'Basic contact and company details',
+        id: 'sample-contact-1',
+        title: 'Contact Information',
+        description: 'How can we reach you?',
         questions: [
           {
-            id: 'sample-basic-1-1',
+            id: 'sample-contact-1-1',
             type: 'text',
             label: 'Full Name',
             required: true
           },
           {
-            id: 'sample-basic-1-2',
-            type: 'text',
-            label: 'Company/Organization Name',
-            required: false
-          },
-          {
-            id: 'sample-basic-1-3',
+            id: 'sample-contact-1-2',
             type: 'text',
             label: 'Email Address',
             required: true
           },
           {
-            id: 'sample-basic-1-4',
+            id: 'sample-contact-1-3',
+            type: 'text',
+            label: 'Phone Number',
+            required: false
+          },
+          {
+            id: 'sample-contact-1-4',
+            type: 'text',
+            label: 'Company/Organization (optional)',
+            required: false
+          }
+        ]
+      },
+      {
+        id: 'sample-contact-2',
+        title: 'Your Message',
+        description: 'Tell us how we can help',
+        questions: [
+          {
+            id: 'sample-contact-2-1',
+            type: 'radio',
+            label: 'Subject',
+            required: true,
+            options: ['General Inquiry', 'Request a Quote', 'Support', 'Partnership', 'Other']
+          },
+          {
+            id: 'sample-contact-2-2',
+            type: 'textarea',
+            label: 'Message',
+            required: true
+          },
+          {
+            id: 'sample-contact-2-3',
+            type: 'radio',
+            label: 'Preferred contact method',
+            required: false,
+            options: ['Email', 'Phone', 'No Preference']
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    name: 'Job Application',
+    description: 'Employment application form for collecting candidate information',
+    category: 'HR',
+    icon: '💼',
+    sections: [
+      {
+        id: 'sample-job-1',
+        title: 'Personal Information',
+        description: 'Tell us about yourself',
+        questions: [
+          {
+            id: 'sample-job-1-1',
+            type: 'text',
+            label: 'Full Name',
+            required: true
+          },
+          {
+            id: 'sample-job-1-2',
+            type: 'text',
+            label: 'Email Address',
+            required: true
+          },
+          {
+            id: 'sample-job-1-3',
             type: 'text',
             label: 'Phone Number',
             required: true
           },
           {
-            id: 'sample-basic-1-5',
+            id: 'sample-job-1-4',
             type: 'textarea',
-            label: 'Mailing Address',
-            required: false
-          }
-        ]
-      },
-      {
-        id: 'sample-basic-2',
-        title: 'Project Details',
-        description: 'Information about the services needed',
-        questions: [
-          {
-            id: 'sample-basic-2-1',
-            type: 'radio',
-            label: 'How did you hear about us?',
-            required: false,
-            options: ['Referral', 'Social Media', 'Search Engine', 'Advertisement', 'Other']
-          },
-          {
-            id: 'sample-basic-2-2',
-            type: 'checkbox',
-            label: 'Which services are you interested in?',
-            required: true,
-            options: ['Consultation', 'Design', 'Implementation', 'Maintenance', 'Training']
-          },
-          {
-            id: 'sample-basic-2-3',
-            type: 'textarea',
-            label: 'Please describe your project or needs',
+            label: 'Current Address',
             required: true
           },
           {
-            id: 'sample-basic-2-4',
+            id: 'sample-job-1-5',
             type: 'text',
-            label: 'Desired timeline or deadline',
-            required: false
-          },
-          {
-            id: 'sample-basic-2-5',
-            type: 'text',
-            label: 'Estimated budget range',
+            label: 'LinkedIn Profile (optional)',
             required: false
           }
         ]
       },
       {
-        id: 'sample-basic-3',
-        title: 'Agreement',
-        description: 'Client acknowledgment and signature',
+        id: 'sample-job-2',
+        title: 'Position & Availability',
+        description: 'Which position are you applying for?',
         questions: [
           {
-            id: 'sample-basic-3-1',
-            type: 'checkbox',
-            label: 'I agree to the terms and conditions',
-            required: true,
-            options: ['I have read and agree to the terms of service and privacy policy']
+            id: 'sample-job-2-1',
+            type: 'text',
+            label: 'Position Applied For',
+            required: true
           },
           {
-            id: 'sample-basic-3-2',
+            id: 'sample-job-2-2',
+            type: 'radio',
+            label: 'Employment Type Desired',
+            required: true,
+            options: ['Full-time', 'Part-time', 'Contract', 'Internship', 'Flexible']
+          },
+          {
+            id: 'sample-job-2-3',
+            type: 'text',
+            label: 'Desired Salary/Rate',
+            required: false
+          },
+          {
+            id: 'sample-job-2-4',
+            type: 'text',
+            label: 'Available Start Date',
+            required: true
+          }
+        ]
+      },
+      {
+        id: 'sample-job-3',
+        title: 'Experience & Qualifications',
+        description: 'Share your background',
+        questions: [
+          {
+            id: 'sample-job-3-1',
+            type: 'textarea',
+            label: 'Relevant Work Experience (most recent first)',
+            required: true
+          },
+          {
+            id: 'sample-job-3-2',
+            type: 'textarea',
+            label: 'Education & Certifications',
+            required: true
+          },
+          {
+            id: 'sample-job-3-3',
+            type: 'textarea',
+            label: 'Key Skills & Competencies',
+            required: true
+          },
+          {
+            id: 'sample-job-3-4',
+            type: 'textarea',
+            label: 'Why are you interested in this position?',
+            required: true
+          }
+        ]
+      },
+      {
+        id: 'sample-job-4',
+        title: 'References',
+        description: 'Professional references (optional)',
+        questions: [
+          {
+            id: 'sample-job-4-1',
+            type: 'textarea',
+            label: 'Reference 1: Name, Title, Company, Phone',
+            required: false
+          },
+          {
+            id: 'sample-job-4-2',
+            type: 'textarea',
+            label: 'Reference 2: Name, Title, Company, Phone',
+            required: false
+          },
+          {
+            id: 'sample-job-4-3',
+            type: 'checkbox',
+            label: 'Acknowledgment',
+            required: true,
+            options: ['I certify that the information provided is accurate and complete']
+          },
+          {
+            id: 'sample-job-4-4',
             type: 'signature',
-            label: 'Client Signature',
+            label: 'Applicant Signature',
             required: true
           }
         ]
@@ -110,284 +214,369 @@ const SAMPLE_TEMPLATES = [
   },
 
   {
-    name: 'Photography Session Questionnaire',
-    description: 'Detailed questionnaire for photography clients (portraits, events, weddings)',
-    category: 'Photography',
-    icon: '📸',
+    name: 'Registration Form',
+    description: 'General registration form for events, services, or memberships',
+    category: 'Events',
+    icon: '📋',
     sections: [
       {
-        id: 'sample-photo-1',
-        title: 'Contact Information',
-        description: 'Your contact details',
+        id: 'sample-reg-1',
+        title: 'Participant Information',
+        description: 'Who is registering?',
         questions: [
           {
-            id: 'sample-photo-1-1',
+            id: 'sample-reg-1-1',
             type: 'text',
             label: 'Full Name',
             required: true
           },
           {
-            id: 'sample-photo-1-2',
+            id: 'sample-reg-1-2',
             type: 'text',
             label: 'Email Address',
             required: true
           },
           {
-            id: 'sample-photo-1-3',
+            id: 'sample-reg-1-3',
             type: 'text',
             label: 'Phone Number',
             required: true
           },
           {
-            id: 'sample-photo-1-4',
+            id: 'sample-reg-1-4',
             type: 'text',
-            label: 'Instagram Handle (optional)',
+            label: 'Organization/Company (if applicable)',
+            required: false
+          },
+          {
+            id: 'sample-reg-1-5',
+            type: 'text',
+            label: 'Job Title/Role (if applicable)',
             required: false
           }
         ]
       },
       {
-        id: 'sample-photo-2',
-        title: 'Session Details',
-        description: 'Tell us about your photo session',
+        id: 'sample-reg-2',
+        title: 'Registration Details',
+        description: 'What are you registering for?',
         questions: [
           {
-            id: 'sample-photo-2-1',
+            id: 'sample-reg-2-1',
             type: 'radio',
-            label: 'Type of Session',
+            label: 'Registration Type',
             required: true,
-            options: ['Portrait', 'Family', 'Wedding', 'Event', 'Product', 'Other']
+            options: ['Individual', 'Group', 'Organization', 'Student']
           },
           {
-            id: 'sample-photo-2-2',
+            id: 'sample-reg-2-2',
+            type: 'text',
+            label: 'Number of Participants (if group)',
+            required: false
+          },
+          {
+            id: 'sample-reg-2-3',
+            type: 'checkbox',
+            label: 'What are you interested in?',
+            required: true,
+            options: ['Full Access', 'Basic Package', 'Premium Package', 'VIP Package']
+          },
+          {
+            id: 'sample-reg-2-4',
+            type: 'radio',
+            label: 'How did you hear about us?',
+            required: false,
+            options: ['Website', 'Social Media', 'Referral', 'Email', 'Advertisement', 'Other']
+          }
+        ]
+      },
+      {
+        id: 'sample-reg-3',
+        title: 'Additional Information',
+        description: 'Help us serve you better',
+        questions: [
+          {
+            id: 'sample-reg-3-1',
+            type: 'textarea',
+            label: 'Dietary Restrictions/Allergies (if applicable)',
+            required: false
+          },
+          {
+            id: 'sample-reg-3-2',
+            type: 'textarea',
+            label: 'Special Accommodations Needed',
+            required: false
+          },
+          {
+            id: 'sample-reg-3-3',
+            type: 'textarea',
+            label: 'Additional Comments or Questions',
+            required: false
+          },
+          {
+            id: 'sample-reg-3-4',
+            type: 'checkbox',
+            label: 'Agreement',
+            required: true,
+            options: ['I agree to the terms and conditions', 'I consent to receive updates and communications']
+          },
+          {
+            id: 'sample-reg-3-5',
+            type: 'signature',
+            label: 'Signature',
+            required: true
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    name: 'Order Form',
+    description: 'Product or service order form with pricing and delivery details',
+    category: 'Sales',
+    icon: '🛒',
+    sections: [
+      {
+        id: 'sample-order-1',
+        title: 'Customer Information',
+        description: 'Billing and contact details',
+        questions: [
+          {
+            id: 'sample-order-1-1',
+            type: 'text',
+            label: 'Full Name',
+            required: true
+          },
+          {
+            id: 'sample-order-1-2',
+            type: 'text',
+            label: 'Email Address',
+            required: true
+          },
+          {
+            id: 'sample-order-1-3',
+            type: 'text',
+            label: 'Phone Number',
+            required: true
+          },
+          {
+            id: 'sample-order-1-4',
+            type: 'textarea',
+            label: 'Billing Address',
+            required: true
+          },
+          {
+            id: 'sample-order-1-5',
+            type: 'text',
+            label: 'Company/Organization (optional)',
+            required: false
+          }
+        ]
+      },
+      {
+        id: 'sample-order-2',
+        title: 'Order Details',
+        description: 'What would you like to order?',
+        questions: [
+          {
+            id: 'sample-order-2-1',
+            type: 'textarea',
+            label: 'Product/Service Description (Item 1)',
+            required: true
+          },
+          {
+            id: 'sample-order-2-2',
+            type: 'text',
+            label: 'Quantity',
+            required: true
+          },
+          {
+            id: 'sample-order-2-3',
+            type: 'textarea',
+            label: 'Additional Items (optional)',
+            required: false
+          },
+          {
+            id: 'sample-order-2-4',
+            type: 'checkbox',
+            label: 'Add-ons or Special Options',
+            required: false,
+            options: ['Rush Processing', 'Gift Wrapping', 'Extended Warranty', 'Installation Service']
+          },
+          {
+            id: 'sample-order-2-5',
+            type: 'textarea',
+            label: 'Special Instructions or Customization',
+            required: false
+          }
+        ]
+      },
+      {
+        id: 'sample-order-3',
+        title: 'Delivery & Payment',
+        description: 'How and when do you need this?',
+        questions: [
+          {
+            id: 'sample-order-3-1',
+            type: 'radio',
+            label: 'Delivery Method',
+            required: true,
+            options: ['Shipping', 'Local Pickup', 'Digital Delivery', 'In-Person Service']
+          },
+          {
+            id: 'sample-order-3-2',
+            type: 'textarea',
+            label: 'Shipping Address (if different from billing)',
+            required: false
+          },
+          {
+            id: 'sample-order-3-3',
+            type: 'text',
+            label: 'Desired Delivery/Service Date',
+            required: false
+          },
+          {
+            id: 'sample-order-3-4',
+            type: 'radio',
+            label: 'Payment Method',
+            required: true,
+            options: ['Credit Card', 'PayPal', 'Bank Transfer', 'Cash', 'Invoice', 'Other']
+          },
+          {
+            id: 'sample-order-3-5',
+            type: 'text',
+            label: 'Purchase Order Number (if applicable)',
+            required: false
+          },
+          {
+            id: 'sample-order-3-6',
+            type: 'signature',
+            label: 'Signature to Confirm Order',
+            required: true
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    name: 'Reservation Form',
+    description: 'Booking form for appointments, services, or venue reservations',
+    category: 'Bookings',
+    icon: '📅',
+    sections: [
+      {
+        id: 'sample-res-1',
+        title: 'Contact Information',
+        description: 'Who is making the reservation?',
+        questions: [
+          {
+            id: 'sample-res-1-1',
+            type: 'text',
+            label: 'Full Name',
+            required: true
+          },
+          {
+            id: 'sample-res-1-2',
+            type: 'text',
+            label: 'Email Address',
+            required: true
+          },
+          {
+            id: 'sample-res-1-3',
+            type: 'text',
+            label: 'Phone Number',
+            required: true
+          },
+          {
+            id: 'sample-res-1-4',
+            type: 'text',
+            label: 'Alternative Contact Number (optional)',
+            required: false
+          }
+        ]
+      },
+      {
+        id: 'sample-res-2',
+        title: 'Reservation Details',
+        description: 'When and what would you like to book?',
+        questions: [
+          {
+            id: 'sample-res-2-1',
+            type: 'radio',
+            label: 'Type of Reservation',
+            required: true,
+            options: ['Appointment', 'Service', 'Event Space', 'Table/Seating', 'Equipment', 'Other']
+          },
+          {
+            id: 'sample-res-2-2',
             type: 'text',
             label: 'Preferred Date',
             required: true
           },
           {
-            id: 'sample-photo-2-3',
+            id: 'sample-res-2-3',
             type: 'text',
             label: 'Preferred Time',
-            required: false
+            required: true
           },
           {
-            id: 'sample-photo-2-4',
+            id: 'sample-res-2-4',
             type: 'text',
-            label: 'Preferred Location',
+            label: 'Alternative Date/Time (if available)',
             required: false
           },
           {
-            id: 'sample-photo-2-5',
+            id: 'sample-res-2-5',
             type: 'text',
-            label: 'Number of people being photographed',
+            label: 'Duration (hours/days)',
             required: false
           },
           {
-            id: 'sample-photo-2-6',
-            type: 'textarea',
-            label: 'Special requests or ideas for the session',
-            required: false
+            id: 'sample-res-2-6',
+            type: 'text',
+            label: 'Number of People/Guests',
+            required: true
           }
         ]
       },
       {
-        id: 'sample-photo-3',
-        title: 'Style Preferences',
-        description: 'Help us understand your vision',
+        id: 'sample-res-3',
+        title: 'Additional Details',
+        description: 'Special requests and preferences',
         questions: [
           {
-            id: 'sample-photo-3-1',
+            id: 'sample-res-3-1',
             type: 'checkbox',
-            label: 'Photography style preferences',
+            label: 'Special Requirements',
             required: false,
-            options: ['Natural/Candid', 'Posed/Formal', 'Editorial', 'Artistic', 'Documentary']
+            options: ['Wheelchair Accessible', 'Parking Needed', 'AV Equipment', 'Catering', 'Other']
           },
           {
-            id: 'sample-photo-3-2',
-            type: 'checkbox',
-            label: 'Color preferences',
-            required: false,
-            options: ['Bright & Vibrant', 'Soft & Pastel', 'Black & White', 'Moody/Dark', 'No Preference']
-          },
-          {
-            id: 'sample-photo-3-3',
+            id: 'sample-res-3-2',
             type: 'textarea',
-            label: 'Link to inspiration photos or Pinterest board',
+            label: 'Special Requests or Notes',
             required: false
-          }
-        ]
-      },
-      {
-        id: 'sample-photo-4',
-        title: 'Agreement & Signature',
-        description: 'Session booking confirmation',
-        questions: [
+          },
           {
-            id: 'sample-photo-4-1',
+            id: 'sample-res-3-3',
+            type: 'radio',
+            label: 'How did you hear about us?',
+            required: false,
+            options: ['Website', 'Social Media', 'Referral', 'Previous Customer', 'Advertisement', 'Other']
+          },
+          {
+            id: 'sample-res-3-4',
             type: 'checkbox',
             label: 'Agreement',
             required: true,
-            options: ['I understand the booking terms and cancellation policy']
+            options: ['I understand the cancellation policy', 'I agree to the terms and conditions']
           },
           {
-            id: 'sample-photo-4-2',
+            id: 'sample-res-3-5',
             type: 'signature',
-            label: 'Client Signature',
-            required: true
-          }
-        ]
-      }
-    ]
-  },
-
-  {
-    name: 'Service Agreement & Client Onboarding',
-    description: 'Comprehensive service agreement form for contractors and service providers',
-    category: 'Contracts',
-    icon: '📝',
-    sections: [
-      {
-        id: 'sample-contract-1',
-        title: 'Client Details',
-        description: 'Primary contact information',
-        questions: [
-          {
-            id: 'sample-contract-1-1',
-            type: 'text',
-            label: 'Individual/Company Name',
-            required: true
-          },
-          {
-            id: 'sample-contract-1-2',
-            type: 'text',
-            label: 'Business Registration Number (if applicable)',
-            required: false
-          },
-          {
-            id: 'sample-contract-1-3',
-            type: 'text',
-            label: 'Primary Contact Person',
-            required: true
-          },
-          {
-            id: 'sample-contract-1-4',
-            type: 'text',
-            label: 'Email Address',
-            required: true
-          },
-          {
-            id: 'sample-contract-1-5',
-            type: 'text',
-            label: 'Phone Number',
-            required: true
-          },
-          {
-            id: 'sample-contract-1-6',
-            type: 'textarea',
-            label: 'Business Address',
-            required: true
-          }
-        ]
-      },
-      {
-        id: 'sample-contract-2',
-        title: 'Scope of Work',
-        description: 'Services to be provided',
-        questions: [
-          {
-            id: 'sample-contract-2-1',
-            type: 'textarea',
-            label: 'Detailed description of services required',
-            required: true
-          },
-          {
-            id: 'sample-contract-2-2',
-            type: 'text',
-            label: 'Project start date',
-            required: true
-          },
-          {
-            id: 'sample-contract-2-3',
-            type: 'text',
-            label: 'Expected completion date',
-            required: false
-          },
-          {
-            id: 'sample-contract-2-4',
-            type: 'checkbox',
-            label: 'Deliverables',
-            required: false,
-            options: ['Reports', 'Documentation', 'Training Materials', 'Source Files', 'Other']
-          }
-        ]
-      },
-      {
-        id: 'sample-contract-3',
-        title: 'Payment Terms',
-        description: 'Financial arrangements',
-        questions: [
-          {
-            id: 'sample-contract-3-1',
-            type: 'text',
-            label: 'Total project cost',
-            required: false
-          },
-          {
-            id: 'sample-contract-3-2',
-            type: 'radio',
-            label: 'Payment structure',
-            required: false,
-            options: ['Fixed Price', 'Hourly Rate', 'Milestone-based', 'Retainer', 'Other']
-          },
-          {
-            id: 'sample-contract-3-3',
-            type: 'radio',
-            label: 'Payment schedule',
-            required: false,
-            options: ['Upfront payment', '50% upfront, 50% on completion', 'Monthly invoicing', 'Upon milestone completion', 'Other']
-          },
-          {
-            id: 'sample-contract-3-4',
-            type: 'text',
-            label: 'Deposit amount (if applicable)',
-            required: false
-          }
-        ]
-      },
-      {
-        id: 'sample-contract-4',
-        title: 'Terms & Conditions',
-        description: 'Agreement terms and legal acknowledgments',
-        questions: [
-          {
-            id: 'sample-contract-4-1',
-            type: 'checkbox',
-            label: 'Client acknowledges and agrees to',
-            required: true,
-            options: [
-              'Payment terms as outlined above',
-              'Cancellation policy and fees',
-              'Intellectual property rights',
-              'Confidentiality agreement',
-              'Liability limitations'
-            ]
-          },
-          {
-            id: 'sample-contract-4-2',
-            type: 'textarea',
-            label: 'Additional notes or special terms',
-            required: false
-          },
-          {
-            id: 'sample-contract-4-3',
-            type: 'signature',
-            label: 'Client Signature',
-            required: true
-          },
-          {
-            id: 'sample-contract-4-4',
-            type: 'text',
-            label: 'Date',
+            label: 'Signature to Confirm Reservation',
             required: true
           }
         ]

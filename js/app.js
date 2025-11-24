@@ -988,7 +988,7 @@ class App {
   }
 
   /**
-   * Import a sample template
+   * Import a sample template with auto-branding
    */
   async importSampleTemplate(templateName) {
     try {
@@ -998,19 +998,45 @@ class App {
         return;
       }
 
-      // Create a copy of the sample template (without id so it gets a new one)
+      // Get user's branding to auto-fill company info
+      const branding = await window.DB.getBranding();
+
+      // Create a copy of the sample template sections
+      let sections = JSON.parse(JSON.stringify(sampleTemplate.sections));
+
+      // Add auto-branded company info to the first section if branding exists
+      if (branding && sections.length > 0) {
+        // Build company info header
+        let companyHeader = `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nProvided by: ${branding.companyName || 'Our Company'}`;
+        if (branding.phone) companyHeader += `\nPhone: ${branding.phone}`;
+        if (branding.email) companyHeader += `\nEmail: ${branding.email}`;
+        if (branding.website) companyHeader += `\nWebsite: ${branding.website}`;
+        if (branding.address) companyHeader += `\nAddress: ${branding.address}`;
+        if (branding.ein) companyHeader += `\nEIN: ${branding.ein}`;
+        companyHeader += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+
+        // Prepend to first section's description
+        const firstSection = sections[0];
+        if (firstSection.description) {
+          firstSection.description = companyHeader + '\n' + firstSection.description;
+        } else {
+          firstSection.description = companyHeader;
+        }
+      }
+
+      // Create the new template
       const newTemplate = {
         name: sampleTemplate.name,
-        sections: sampleTemplate.sections
+        sections: sections
       };
 
       // Save to database
       const id = await window.DB.saveTemplate(newTemplate);
 
-      this.showNotification(`"${templateName}" imported successfully!`, 'success');
+      this.showNotification(`"${templateName}" imported and auto-branded!`, 'success');
 
       // Ask if user wants to edit or use it
-      const action = confirm('Template imported!\n\nClick OK to edit the template, or Cancel to view all templates.');
+      const action = confirm('Template imported with your company branding!\n\nClick OK to edit the template, or Cancel to view all templates.');
 
       if (action) {
         window.Router.navigate('/builder', { id });
@@ -1018,7 +1044,7 @@ class App {
         window.Router.navigate('/templates');
       }
 
-      await window.DB.logEvent('sample_template_imported', { templateName });
+      await window.DB.logEvent('sample_template_imported', { templateName, autoBranded: !!branding });
     } catch (error) {
       console.error('[App] Failed to import sample template:', error);
       this.showNotification('Failed to import template: ' + error.message, 'error');
